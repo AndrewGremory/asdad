@@ -60,8 +60,8 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="agregar_ficha.php">Agregar Ficha</a>
-                                <a class="nav-link" href="consultar_ficha.php">Consulta de Fichas</a>
+                                <a class="nav-link" href="../ficha/agregar_ficha.php">Agregar Ficha</a>
+                                <a class="nav-link" href="../ficha/consultar_ficha.php">Consulta de Fichas</a>
                             </nav>
                         </div>
 

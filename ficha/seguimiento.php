@@ -556,6 +556,7 @@ $total_client = mysqli_num_rows($queryData);
                 }
             } );
             
+            
         } );
 
         // $("#btn_agregar").click(function(){
@@ -584,6 +585,7 @@ $total_client = mysqli_num_rows($queryData);
         //     })
         // });
     </script>
+
 
 
 
