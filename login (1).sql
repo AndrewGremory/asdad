@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-03-2022 a las 23:02:28
+-- Tiempo de generación: 18-03-2022 a las 22:50:05
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.0.13
 
@@ -20,6 +20,17 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `login`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `actividad`
+--
+
+CREATE TABLE `actividad` (
+  `act_id` int(11) NOT NULL,
+  `act_nombre` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -100,7 +111,8 @@ CREATE TABLE `fichas` (
 --
 
 INSERT INTO `fichas` (`id_ficha`, `tipo_programa`, `nombre_programa`, `lider_ficha`) VALUES
-(2068060, 'tecnologo', 1, 4);
+(2068060, 'tecnologo', 1, 4),
+(5645665, 'especializacion', 2, 6);
 
 -- --------------------------------------------------------
 
@@ -129,14 +141,15 @@ INSERT INTO `programa` (`id_programa`, `pro_nombre`) VALUES
 --
 
 CREATE TABLE `rap` (
-  `rap_id` int(11) NOT NULL,
-  `rap_nombre` varchar(1000) DEFAULT NULL,
-  `rap_resultado` varchar(1000) DEFAULT NULL,
-  `rap_inicio` date DEFAULT NULL,
-  `rap_fin` date DEFAULT NULL,
-  `rap_horas` int(11) DEFAULT NULL,
-  `rap_competencia` int(11) DEFAULT NULL,
-  `rap_fase` int(11) DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `ficha_id` int(11) NOT NULL,
+  `fase_id` int(11) NOT NULL,
+  `act_id` int(11) NOT NULL,
+  `rcp_id` int(11) NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
+  `estado` enum('Evaluado','Pendiente','En ejecución','') NOT NULL,
+  `observacion` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -161,7 +174,7 @@ CREATE TABLE `regional` (
 
 CREATE TABLE `resultados` (
   `id` int(11) NOT NULL,
-  `descripcion` varchar(500) NOT NULL,
+  `resultado` varchar(500) NOT NULL,
   `tipo_resultado` enum('Específico','Institucional','Clave','Transversal') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -169,7 +182,7 @@ CREATE TABLE `resultados` (
 -- Volcado de datos para la tabla `resultados`
 --
 
-INSERT INTO `resultados` (`id`, `descripcion`, `tipo_resultado`) VALUES
+INSERT INTO `resultados` (`id`, `resultado`, `tipo_resultado`) VALUES
 (1, 'ASUMIR LOS DEBERES Y DERECHOS CON BASE EN LAS LEYES Y LA NORMATIVA INSTITUCIONAL EN EL MARCO DE SU PROYECTO DE VIDA.\r\n', 'Específico'),
 (2, 'CONCERTAR ALTERNATIVAS Y ACCIONES DE FORMACIÓN PARA EL DESARROLLO DE LAS COMPETENCIAS DEL PROGRAMA FORMACIÓN, CON BASE EN LA POLÍTICA INSTITUCIONAL.\r\n', 'Institucional'),
 (3, 'GESTIONAR LA INFORMACIÓN DE ACUERDO CON LOS PROCEDIMIENTOS ESTABLECIDOS Y CON LAS TECNOLOGÍAS DE LA INFORMACIÓN Y LA COMUNICACIÓN DISPONIBLES.\r\n', 'Institucional'),
@@ -280,6 +293,12 @@ INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellido`, `usuario`, `pw`, `ro
 --
 
 --
+-- Indices de la tabla `actividad`
+--
+ALTER TABLE `actividad`
+  ADD PRIMARY KEY (`act_id`);
+
+--
 -- Indices de la tabla `centro`
 --
 ALTER TABLE `centro`
@@ -324,9 +343,10 @@ ALTER TABLE `programa`
 -- Indices de la tabla `rap`
 --
 ALTER TABLE `rap`
-  ADD PRIMARY KEY (`rap_id`),
-  ADD KEY `rap_competencia` (`rap_competencia`),
-  ADD KEY `rap_fase` (`rap_fase`);
+  ADD KEY `ficha_id` (`ficha_id`),
+  ADD KEY `fase_id` (`fase_id`),
+  ADD KEY `act_id` (`act_id`),
+  ADD KEY `rap_ibfk_4` (`rcp_id`);
 
 --
 -- Indices de la tabla `regional`
@@ -377,6 +397,12 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `actividad`
+--
+ALTER TABLE `actividad`
+  MODIFY `act_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `centro`
 --
 ALTER TABLE `centro`
@@ -405,12 +431,6 @@ ALTER TABLE `fase`
 --
 ALTER TABLE `programa`
   MODIFY `id_programa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT de la tabla `rap`
---
-ALTER TABLE `rap`
-  MODIFY `rap_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `regional`
@@ -476,8 +496,10 @@ ALTER TABLE `fichas`
 -- Filtros para la tabla `rap`
 --
 ALTER TABLE `rap`
-  ADD CONSTRAINT `rap_ibfk_1` FOREIGN KEY (`rap_competencia`) REFERENCES `competencia` (`comp_id`),
-  ADD CONSTRAINT `rap_ibfk_2` FOREIGN KEY (`rap_fase`) REFERENCES `fase` (`fase_id`);
+  ADD CONSTRAINT `rap_ibfk_1` FOREIGN KEY (`ficha_id`) REFERENCES `fichas` (`id_ficha`),
+  ADD CONSTRAINT `rap_ibfk_2` FOREIGN KEY (`fase_id`) REFERENCES `fase` (`fase_id`),
+  ADD CONSTRAINT `rap_ibfk_3` FOREIGN KEY (`act_id`) REFERENCES `actividad` (`act_id`),
+  ADD CONSTRAINT `rap_ibfk_4` FOREIGN KEY (`rcp_id`) REFERENCES `resultado_competencia_programa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `regional`
