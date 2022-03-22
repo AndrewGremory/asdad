@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-03-2022 a las 22:50:05
+-- Tiempo de generación: 22-03-2022 a las 22:42:55
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.0.13
 
@@ -31,6 +31,21 @@ CREATE TABLE `actividad` (
   `act_id` int(11) NOT NULL,
   `act_nombre` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `actividad`
+--
+
+INSERT INTO `actividad` (`act_id`, `act_nombre`) VALUES
+(1, 'IDENTIFICAR LOS LINEAMIENTOS INSTITUCIONALES RELACIONADOS CON LA FORMACIÒN PROFESIONAL INTEGRAL Y PRESENTACIÓN DEL PROYECTO FORMATIVO'),
+(2, 'IDENTIFICAR LOS LINEAMIENTOS INSTITUCIONALES RELACIONADOS CON LA FORMACIÒN PROFESIONAL INTEGRAL Y PRESENTACIÓN DEL PROYECTO FORMATIVO'),
+(3, 'IDENTIFICAR LOS LINEAMIENTOS INSTITUCIONALES RELACIONADOS CON LA FORMACIÒN PROFESIONAL INTEGRAL Y PRESENTACIÓN DEL PROYECTO FORMATIVO'),
+(4, 'IDENTIFICAR LOS LINEAMIENTOS INSTITUCIONALES RELACIONADOS CON LA FORMACIÒN PROFESIONAL INTEGRAL Y PRESENTACIÓN DEL PROYECTO FORMATIVO'),
+(5, 'IDENTIFICAR LOS LINEAMIENTOS INSTITUCIONALES RELACIONADOS CON LA FORMACIÒN PROFESIONAL INTEGRAL Y PRESENTACIÓN DEL PROYECTO FORMATIVO'),
+(6, 'DETERMINAR LAS ESPECIFICACIONES FUNCIONALES DEL SISTEMA DE INFORMACIÓN.'),
+(7, 'DETERMINAR LAS ESPECIFICACIONES FUNCIONALES DEL SISTEMA DE INFORMACIÓN.'),
+(8, 'DETERMINAR LAS ESPECIFICACIONES FUNCIONALES DEL SISTEMA DE INFORMACIÓN.'),
+(9, 'DETERMINAR LAS ESPECIFICACIONES FUNCIONALES DEL SISTEMA DE INFORMACIÓN.');
 
 -- --------------------------------------------------------
 
@@ -93,6 +108,19 @@ CREATE TABLE `fase` (
   `fase_nombre` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `fase`
+--
+
+INSERT INTO `fase` (`fase_id`, `fase_nombre`) VALUES
+(1, 'INDUCCIÓN'),
+(2, 'IDENTIFICACIÓN'),
+(3, 'ANÁLISIS'),
+(4, 'DISEÑO'),
+(5, 'DESARROLLO'),
+(6, 'IMPLANTACIÓN'),
+(7, 'EVALUACIÓN');
+
 -- --------------------------------------------------------
 
 --
@@ -111,6 +139,7 @@ CREATE TABLE `fichas` (
 --
 
 INSERT INTO `fichas` (`id_ficha`, `tipo_programa`, `nombre_programa`, `lider_ficha`) VALUES
+(12345, 'especializacion', 1, 4),
 (2068060, 'tecnologo', 1, 4),
 (5645665, 'especializacion', 2, 6);
 
@@ -142,15 +171,30 @@ INSERT INTO `programa` (`id_programa`, `pro_nombre`) VALUES
 
 CREATE TABLE `rap` (
   `id` int(11) NOT NULL,
-  `ficha_id` int(11) NOT NULL,
-  `fase_id` int(11) NOT NULL,
-  `act_id` int(11) NOT NULL,
-  `rcp_id` int(11) NOT NULL,
-  `fecha_inicio` date NOT NULL,
-  `fecha_fin` date NOT NULL,
-  `estado` enum('Evaluado','Pendiente','En ejecución','') NOT NULL,
-  `observacion` varchar(200) NOT NULL
+  `ficha_id` int(11) DEFAULT NULL,
+  `fase_id` int(11) DEFAULT NULL,
+  `act_id` int(11) DEFAULT NULL,
+  `rcp_id` int(11) DEFAULT NULL,
+  `fecha_inicio` date DEFAULT NULL,
+  `fecha_fin` date DEFAULT NULL,
+  `estado` enum('Evaluado','Pendiente','En ejecución','') DEFAULT NULL,
+  `observacion` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `rap`
+--
+
+INSERT INTO `rap` (`id`, `ficha_id`, `fase_id`, `act_id`, `rcp_id`, `fecha_inicio`, `fecha_fin`, `estado`, `observacion`) VALUES
+(31, 12345, 1, 1, 1, '2022-03-15', '2023-03-30', 'Evaluado', NULL),
+(32, 12345, NULL, NULL, 2, NULL, NULL, NULL, NULL),
+(33, 12345, NULL, NULL, 3, NULL, NULL, NULL, NULL),
+(34, 12345, NULL, NULL, 4, NULL, NULL, NULL, NULL),
+(38, 2068060, NULL, NULL, 1, NULL, NULL, NULL, NULL),
+(39, 2068060, NULL, NULL, 2, NULL, NULL, NULL, NULL),
+(40, 2068060, NULL, NULL, 3, NULL, NULL, NULL, NULL),
+(41, 2068060, NULL, NULL, 4, NULL, NULL, NULL, NULL),
+(55, 5645665, NULL, NULL, 5, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -343,7 +387,8 @@ ALTER TABLE `programa`
 -- Indices de la tabla `rap`
 --
 ALTER TABLE `rap`
-  ADD KEY `ficha_id` (`ficha_id`),
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `ficha_id` (`ficha_id`,`rcp_id`),
   ADD KEY `fase_id` (`fase_id`),
   ADD KEY `act_id` (`act_id`),
   ADD KEY `rap_ibfk_4` (`rcp_id`);
@@ -400,7 +445,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `actividad`
 --
 ALTER TABLE `actividad`
-  MODIFY `act_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `act_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `centro`
@@ -424,13 +469,19 @@ ALTER TABLE `competencia`
 -- AUTO_INCREMENT de la tabla `fase`
 --
 ALTER TABLE `fase`
-  MODIFY `fase_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `fase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `programa`
 --
 ALTER TABLE `programa`
   MODIFY `id_programa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT de la tabla `rap`
+--
+ALTER TABLE `rap`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `regional`

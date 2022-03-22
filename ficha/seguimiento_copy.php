@@ -1,7 +1,13 @@
 <?php include('config.php');
 
 $fichaconsulta= $_POST['ficha'];
-$consulta = "SELECT * FROM resultado_aprendizaje where ficha_id = '$fichaconsulta'";
+// $consulta = "SELECT * FROM rap where ficha_id = '$fichaconsulta'";
+$consulta = "SELECT resultado as resultado_aprendizaje, comp_nombre as competencia, pro_nombre as programa FROM resultado_competencia_programa rcp 
+JOIN competencia c ON rcp.comp_id = c.comp_id 
+JOIN resultados r ON rcp.resultado_id = r.id 
+JOIN programa p ON rcp.programa_id = p.id_programa 
+JOIN fichas f ON rcp.programa_id = f.nombre_programa 
+WHERE id_ficha = '$fichaconsulta";
 
 $queryData   = mysqli_query($con, $consulta);
 $total_client = mysqli_num_rows($queryData);
