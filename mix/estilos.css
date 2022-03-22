@@ -1,0 +1,14 @@
+#menu {
+    background-color: blue;
+    font-size: 5em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-top: auto;
+    text-shadow: brown;
+    text-align: center;
+}
+.menu {
+    background-color: chartreuse;
+    text-align: left;
+    font-size: 1em;
+    text-decoration: chocolate;
+}
