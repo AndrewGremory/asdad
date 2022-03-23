@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-03-2022 a las 22:57:22
+-- Tiempo de generación: 22-03-2022 a las 22:42:55
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.0.13
 
@@ -20,6 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `login`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `actividad`
+--
+
+CREATE TABLE `actividad` (
+  `act_id` int(11) NOT NULL,
+  `act_nombre` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `actividad`
+--
+
+INSERT INTO `actividad` (`act_id`, `act_nombre`) VALUES
+(1, 'IDENTIFICAR LOS LINEAMIENTOS INSTITUCIONALES RELACIONADOS CON LA FORMACIÒN PROFESIONAL INTEGRAL Y PRESENTACIÓN DEL PROYECTO FORMATIVO'),
+(2, 'IDENTIFICAR LOS LINEAMIENTOS INSTITUCIONALES RELACIONADOS CON LA FORMACIÒN PROFESIONAL INTEGRAL Y PRESENTACIÓN DEL PROYECTO FORMATIVO'),
+(3, 'IDENTIFICAR LOS LINEAMIENTOS INSTITUCIONALES RELACIONADOS CON LA FORMACIÒN PROFESIONAL INTEGRAL Y PRESENTACIÓN DEL PROYECTO FORMATIVO'),
+(4, 'IDENTIFICAR LOS LINEAMIENTOS INSTITUCIONALES RELACIONADOS CON LA FORMACIÒN PROFESIONAL INTEGRAL Y PRESENTACIÓN DEL PROYECTO FORMATIVO'),
+(5, 'IDENTIFICAR LOS LINEAMIENTOS INSTITUCIONALES RELACIONADOS CON LA FORMACIÒN PROFESIONAL INTEGRAL Y PRESENTACIÓN DEL PROYECTO FORMATIVO'),
+(6, 'DETERMINAR LAS ESPECIFICACIONES FUNCIONALES DEL SISTEMA DE INFORMACIÓN.'),
+(7, 'DETERMINAR LAS ESPECIFICACIONES FUNCIONALES DEL SISTEMA DE INFORMACIÓN.'),
+(8, 'DETERMINAR LAS ESPECIFICACIONES FUNCIONALES DEL SISTEMA DE INFORMACIÓN.'),
+(9, 'DETERMINAR LAS ESPECIFICACIONES FUNCIONALES DEL SISTEMA DE INFORMACIÓN.');
 
 -- --------------------------------------------------------
 
@@ -74,25 +100,6 @@ INSERT INTO `competencia` (`comp_id`, `comp_nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `comp_resultado`
---
-
-CREATE TABLE `comp_resultado` (
-  `id` int(11) NOT NULL,
-  `id_comp` int(11) NOT NULL,
-  `id_resultado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `comp_resultado`
---
-
-INSERT INTO `comp_resultado` (`id`, `id_comp`, `id_resultado`) VALUES
-(1, 1, 1);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `fase`
 --
 
@@ -100,6 +107,19 @@ CREATE TABLE `fase` (
   `fase_id` int(11) NOT NULL,
   `fase_nombre` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `fase`
+--
+
+INSERT INTO `fase` (`fase_id`, `fase_nombre`) VALUES
+(1, 'INDUCCIÓN'),
+(2, 'IDENTIFICACIÓN'),
+(3, 'ANÁLISIS'),
+(4, 'DISEÑO'),
+(5, 'DESARROLLO'),
+(6, 'IMPLANTACIÓN'),
+(7, 'EVALUACIÓN');
 
 -- --------------------------------------------------------
 
@@ -119,7 +139,9 @@ CREATE TABLE `fichas` (
 --
 
 INSERT INTO `fichas` (`id_ficha`, `tipo_programa`, `nombre_programa`, `lider_ficha`) VALUES
-(2068060, 'tecnologo', 1, 4);
+(12345, 'especializacion', 1, 4),
+(2068060, 'tecnologo', 1, 4),
+(5645665, 'especializacion', 2, 6);
 
 -- --------------------------------------------------------
 
@@ -137,10 +159,9 @@ CREATE TABLE `programa` (
 --
 
 INSERT INTO `programa` (`id_programa`, `pro_nombre`) VALUES
-(1, 'Adsi'),
-(2, 'Ingles'),
-(8, 'ganaderia'),
-(9, 'Gastronomía ');
+(1, 'Análisis y desarrollo de sistemas de información'),
+(2, 'Ganaderia'),
+(3, 'Especies Menores');
 
 -- --------------------------------------------------------
 
@@ -149,15 +170,31 @@ INSERT INTO `programa` (`id_programa`, `pro_nombre`) VALUES
 --
 
 CREATE TABLE `rap` (
-  `rap_id` int(11) NOT NULL,
-  `rap_nombre` varchar(1000) DEFAULT NULL,
-  `rap_resultado` varchar(1000) DEFAULT NULL,
-  `rap_inicio` date DEFAULT NULL,
-  `rap_fin` date DEFAULT NULL,
-  `rap_horas` int(11) DEFAULT NULL,
-  `rap_competencia` int(11) DEFAULT NULL,
-  `rap_fase` int(11) DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `ficha_id` int(11) DEFAULT NULL,
+  `fase_id` int(11) DEFAULT NULL,
+  `act_id` int(11) DEFAULT NULL,
+  `rcp_id` int(11) DEFAULT NULL,
+  `fecha_inicio` date DEFAULT NULL,
+  `fecha_fin` date DEFAULT NULL,
+  `estado` enum('Evaluado','Pendiente','En ejecución','') DEFAULT NULL,
+  `observacion` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `rap`
+--
+
+INSERT INTO `rap` (`id`, `ficha_id`, `fase_id`, `act_id`, `rcp_id`, `fecha_inicio`, `fecha_fin`, `estado`, `observacion`) VALUES
+(31, 12345, 1, 1, 1, '2022-03-15', '2023-03-30', 'Evaluado', NULL),
+(32, 12345, NULL, NULL, 2, NULL, NULL, NULL, NULL),
+(33, 12345, NULL, NULL, 3, NULL, NULL, NULL, NULL),
+(34, 12345, NULL, NULL, 4, NULL, NULL, NULL, NULL),
+(38, 2068060, NULL, NULL, 1, NULL, NULL, NULL, NULL),
+(39, 2068060, NULL, NULL, 2, NULL, NULL, NULL, NULL),
+(40, 2068060, NULL, NULL, 3, NULL, NULL, NULL, NULL),
+(41, 2068060, NULL, NULL, 4, NULL, NULL, NULL, NULL),
+(55, 5645665, NULL, NULL, 5, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -181,7 +218,7 @@ CREATE TABLE `regional` (
 
 CREATE TABLE `resultados` (
   `id` int(11) NOT NULL,
-  `descripcion` varchar(500) NOT NULL,
+  `resultado` varchar(500) NOT NULL,
   `tipo_resultado` enum('Específico','Institucional','Clave','Transversal') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -189,7 +226,7 @@ CREATE TABLE `resultados` (
 -- Volcado de datos para la tabla `resultados`
 --
 
-INSERT INTO `resultados` (`id`, `descripcion`, `tipo_resultado`) VALUES
+INSERT INTO `resultados` (`id`, `resultado`, `tipo_resultado`) VALUES
 (1, 'ASUMIR LOS DEBERES Y DERECHOS CON BASE EN LAS LEYES Y LA NORMATIVA INSTITUCIONAL EN EL MARCO DE SU PROYECTO DE VIDA.\r\n', 'Específico'),
 (2, 'CONCERTAR ALTERNATIVAS Y ACCIONES DE FORMACIÓN PARA EL DESARROLLO DE LAS COMPETENCIAS DEL PROGRAMA FORMACIÓN, CON BASE EN LA POLÍTICA INSTITUCIONAL.\r\n', 'Institucional'),
 (3, 'GESTIONAR LA INFORMACIÓN DE ACUERDO CON LOS PROCEDIMIENTOS ESTABLECIDOS Y CON LAS TECNOLOGÍAS DE LA INFORMACIÓN Y LA COMUNICACIÓN DISPONIBLES.\r\n', 'Institucional'),
@@ -218,24 +255,26 @@ CREATE TABLE `resultado_aprendizaje` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `resultado_programa`
+-- Estructura de tabla para la tabla `resultado_competencia_programa`
 --
 
-CREATE TABLE `resultado_programa` (
+CREATE TABLE `resultado_competencia_programa` (
   `id` int(11) NOT NULL,
+  `comp_id` int(11) NOT NULL,
   `resultado_id` int(11) DEFAULT NULL,
   `programa_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `resultado_programa`
+-- Volcado de datos para la tabla `resultado_competencia_programa`
 --
 
-INSERT INTO `resultado_programa` (`id`, `resultado_id`, `programa_id`) VALUES
-(1, 1, 1),
-(2, 2, 1),
-(3, 3, 1),
-(6, 2, 2);
+INSERT INTO `resultado_competencia_programa` (`id`, `comp_id`, `resultado_id`, `programa_id`) VALUES
+(1, 1, 1, 1),
+(2, 2, 2, 1),
+(3, 3, 3, 1),
+(4, 3, 3, 1),
+(5, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -298,6 +337,12 @@ INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellido`, `usuario`, `pw`, `ro
 --
 
 --
+-- Indices de la tabla `actividad`
+--
+ALTER TABLE `actividad`
+  ADD PRIMARY KEY (`act_id`);
+
+--
 -- Indices de la tabla `centro`
 --
 ALTER TABLE `centro`
@@ -317,14 +362,6 @@ ALTER TABLE `centro_tiene_programa`
 --
 ALTER TABLE `competencia`
   ADD PRIMARY KEY (`comp_id`);
-
---
--- Indices de la tabla `comp_resultado`
---
-ALTER TABLE `comp_resultado`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_comp` (`id_comp`),
-  ADD KEY `id_resultado` (`id_resultado`);
 
 --
 -- Indices de la tabla `fase`
@@ -350,9 +387,11 @@ ALTER TABLE `programa`
 -- Indices de la tabla `rap`
 --
 ALTER TABLE `rap`
-  ADD PRIMARY KEY (`rap_id`),
-  ADD KEY `rap_competencia` (`rap_competencia`),
-  ADD KEY `rap_fase` (`rap_fase`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `ficha_id` (`ficha_id`,`rcp_id`),
+  ADD KEY `fase_id` (`fase_id`),
+  ADD KEY `act_id` (`act_id`),
+  ADD KEY `rap_ibfk_4` (`rcp_id`);
 
 --
 -- Indices de la tabla `regional`
@@ -376,12 +415,13 @@ ALTER TABLE `resultado_aprendizaje`
   ADD KEY `resultado_aprendizaje_ibfk_2` (`resultado`);
 
 --
--- Indices de la tabla `resultado_programa`
+-- Indices de la tabla `resultado_competencia_programa`
 --
-ALTER TABLE `resultado_programa`
+ALTER TABLE `resultado_competencia_programa`
   ADD PRIMARY KEY (`id`),
   ADD KEY `programa_id` (`programa_id`),
-  ADD KEY `resultado_id` (`resultado_id`);
+  ADD KEY `resultado_id` (`resultado_id`),
+  ADD KEY `comp_id` (`comp_id`);
 
 --
 -- Indices de la tabla `seguimiento`
@@ -402,6 +442,12 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `actividad`
+--
+ALTER TABLE `actividad`
+  MODIFY `act_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT de la tabla `centro`
 --
 ALTER TABLE `centro`
@@ -420,28 +466,22 @@ ALTER TABLE `competencia`
   MODIFY `comp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `comp_resultado`
---
-ALTER TABLE `comp_resultado`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT de la tabla `fase`
 --
 ALTER TABLE `fase`
-  MODIFY `fase_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `fase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `programa`
 --
 ALTER TABLE `programa`
-  MODIFY `id_programa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_programa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `rap`
 --
 ALTER TABLE `rap`
-  MODIFY `rap_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `regional`
@@ -462,10 +502,10 @@ ALTER TABLE `resultado_aprendizaje`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2435879;
 
 --
--- AUTO_INCREMENT de la tabla `resultado_programa`
+-- AUTO_INCREMENT de la tabla `resultado_competencia_programa`
 --
-ALTER TABLE `resultado_programa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `resultado_competencia_programa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `seguimiento`
@@ -497,13 +537,6 @@ ALTER TABLE `centro_tiene_programa`
   ADD CONSTRAINT `centro_tiene_programa_ibfk_2` FOREIGN KEY (`progra_id`) REFERENCES `programa` (`id_programa`);
 
 --
--- Filtros para la tabla `comp_resultado`
---
-ALTER TABLE `comp_resultado`
-  ADD CONSTRAINT `comp_resultado_ibfk_1` FOREIGN KEY (`id_comp`) REFERENCES `competencia` (`comp_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `comp_resultado_ibfk_2` FOREIGN KEY (`id_resultado`) REFERENCES `resultados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Filtros para la tabla `fichas`
 --
 ALTER TABLE `fichas`
@@ -514,8 +547,10 @@ ALTER TABLE `fichas`
 -- Filtros para la tabla `rap`
 --
 ALTER TABLE `rap`
-  ADD CONSTRAINT `rap_ibfk_1` FOREIGN KEY (`rap_competencia`) REFERENCES `competencia` (`comp_id`),
-  ADD CONSTRAINT `rap_ibfk_2` FOREIGN KEY (`rap_fase`) REFERENCES `fase` (`fase_id`);
+  ADD CONSTRAINT `rap_ibfk_1` FOREIGN KEY (`ficha_id`) REFERENCES `fichas` (`id_ficha`),
+  ADD CONSTRAINT `rap_ibfk_2` FOREIGN KEY (`fase_id`) REFERENCES `fase` (`fase_id`),
+  ADD CONSTRAINT `rap_ibfk_3` FOREIGN KEY (`act_id`) REFERENCES `actividad` (`act_id`),
+  ADD CONSTRAINT `rap_ibfk_4` FOREIGN KEY (`rcp_id`) REFERENCES `resultado_competencia_programa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `regional`
@@ -528,21 +563,22 @@ ALTER TABLE `regional`
 --
 ALTER TABLE `resultado_aprendizaje`
   ADD CONSTRAINT `resultado_aprendizaje_ibfk_1` FOREIGN KEY (`ficha_id`) REFERENCES `fichas` (`id_ficha`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `resultado_aprendizaje_ibfk_2` FOREIGN KEY (`resultado`) REFERENCES `resultado_programa` (`id`);
+  ADD CONSTRAINT `resultado_aprendizaje_ibfk_2` FOREIGN KEY (`resultado`) REFERENCES `resultado_competencia_programa` (`id`);
 
 --
--- Filtros para la tabla `resultado_programa`
+-- Filtros para la tabla `resultado_competencia_programa`
 --
-ALTER TABLE `resultado_programa`
-  ADD CONSTRAINT `resultado_programa_ibfk_1` FOREIGN KEY (`programa_id`) REFERENCES `programa` (`id_programa`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `resultado_programa_ibfk_2` FOREIGN KEY (`resultado_id`) REFERENCES `resultados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `resultado_competencia_programa`
+  ADD CONSTRAINT `resultado_competencia_programa_ibfk_1` FOREIGN KEY (`programa_id`) REFERENCES `programa` (`id_programa`),
+  ADD CONSTRAINT `resultado_competencia_programa_ibfk_2` FOREIGN KEY (`resultado_id`) REFERENCES `resultados` (`id`),
+  ADD CONSTRAINT `resultado_competencia_programa_ibfk_3` FOREIGN KEY (`comp_id`) REFERENCES `competencia` (`comp_id`);
 
 --
 -- Filtros para la tabla `seguimiento`
 --
 ALTER TABLE `seguimiento`
   ADD CONSTRAINT `seguimiento_ibfk_1` FOREIGN KEY (`segui_ficha`) REFERENCES `fichas` (`id_ficha`),
-  ADD CONSTRAINT `seguimiento_ibfk_2` FOREIGN KEY (`segui_rap`) REFERENCES `resultado_programa` (`id`);
+  ADD CONSTRAINT `seguimiento_ibfk_2` FOREIGN KEY (`segui_rap`) REFERENCES `resultado_competencia_programa` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

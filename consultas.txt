@@ -1,0 +1,7 @@
+SELECT rcp.id, id_ficha, fase_id, act_id, comp_nombre as competencia, resultado, tipo_resultado, fecha_inicio, fecha_fin, estado, observacion from fichas f 
+JOIN programa p ON nombre_programa = p.id_programa 
+JOIN resultado_competencia_programa rcp ON p.id_programa = rcp.programa_id 
+JOIN resultados r ON rcp.resultado_id = r.id
+JOIN competencia c ON rcp.comp_id = c.comp_id
+JOIN rap ON id_ficha = rap.ficha_id
+WHERE nombre_programa = 1 AND ficha_id = 2068060;

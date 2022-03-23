@@ -1,10 +1,15 @@
 <?php include('config.php');
 
 $fichaconsulta= $_POST['ficha'];
-$consulta = "SELECT * FROM resultado_aprendizaje where ficha_id = '$fichaconsulta'";
+// $consulta = "SELECT * FROM resultado_aprendizaje where ficha_id = '$fichaconsulta'";
+$consulta = "SELECT rap.id, fase_id, act_id, ficha_id, comp_nombre as competencia, resultado, tipo_resultado, fecha_inicio, fecha_fin, estado, observacion FROM `rap` JOIN resultado_competencia_programa rcp ON rcp_id = rcp.id
+JOIN competencia c ON rcp.comp_id = c.comp_id
+JOIN resultados r ON rcp.resultado_id = r.id
+WHERE ficha_id = '$fichaconsulta'";
+
 
 $queryData   = mysqli_query($con, $consulta);
-$total_client = mysqli_num_rows($queryData);
+// $total_client = mysqli_num_rows($queryData);
 
  
     if(isset($_POST['editar'])){
@@ -221,7 +226,7 @@ $total_client = mysqli_num_rows($queryData);
 
                         ?>   
                     <h6 class="text-center">
-                        Resultados de aprendizaje <strong>(<?php echo $total_client; ?>)</strong>
+                        <!-- Resultados de aprendizaje <strong>(<?php echo $total_client; ?>)</strong> -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Agregar_resultado">Agregar resultado de Aprendizaje</button>
                         <a class="btn btn-primary" href="../estadisticas/index.php">Estadisticas</a>
                     </h6>
@@ -272,15 +277,15 @@ $total_client = mysqli_num_rows($queryData);
                                         $i = 1;
                                         while ($data = mysqli_fetch_array($queryData)) { ?>
                                         <th><?php  echo $i++;?></th>
-                                        <td><?php echo $data['fase']; ?></td>
-                                        <td><?php echo $data['actividad']; ?></td>
+                                        <td><?php echo $data['fase_id']; ?></td>
+                                        <td><?php echo $data['act_id']; ?></td>
                                         <td><?php echo $data['competencia']; ?></td>
                                         <td><?php echo $data['resultado']; ?></td>
-                                        <td><?php echo $data['tipo']; ?></td>
+                                        <td><?php echo $data['tipo_resultado']; ?></td>
                                         <td><?php echo $data['fecha_inicio']; ?></td>
                                         <td><?php echo $data['fecha_fin']; ?></td>
                                         <td><?php echo $data['estado']; ?></td>
-                                        <td><?php echo $data['observaciones']; ?></td>
+                                        <td><?php echo $data['observacion']; ?></td>
                                         <td> <button type="button" class="btn btn-success editbtn" data-toggle="modal" data-target="#editar"><i class="fas fa-edit"></i></button> <hr>
                                             <button type="button" class="btn btn-danger deletebtn" data-toggle="modal" data-target="#eliminar"><i class="fas fa-trash"></i></button> 
                                             <!-- eliminar -->
