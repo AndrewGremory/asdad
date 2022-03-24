@@ -5,3 +5,16 @@ JOIN resultados r ON rcp.resultado_id = r.id
 JOIN competencia c ON rcp.comp_id = c.comp_id
 JOIN rap ON id_ficha = rap.ficha_id
 WHERE nombre_programa = 1 AND ficha_id = 2068060;
+
+
+INSERT INTO rap (ficha_id, fase_id, act_id, rcp_id, fecha_inicio, fecha_fin, estado, observacion) SELECT id_ficha, fase_id, act_id, rcp.id, null, null, null, null from fichas
+JOIN fase fa 
+JOIN actividad act 
+JOIN resultado_competencia_programa rcp 
+WHERE id_ficha = 123448789 AND nombre_programa = rcp.programa_id
+
+INSERT INTO rap (ficha_id, fase_id, act_id, rcp_id, fecha_inicio, fecha_fin, estado, observacion) SELECT id_ficha, fase_id, act_id, rcp.id, null, null, null, null from fichas
+JOIN fase fa 
+JOIN actividad act 
+JOIN resultado_competencia_programa rcp 
+WHERE id_ficha = 123448789 AND nombre_programa = rcp.programa_id

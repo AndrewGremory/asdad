@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-03-2022 a las 22:42:55
+-- Tiempo de generación: 24-03-2022 a las 22:40:24
 -- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.0.13
+-- Versión de PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -141,7 +141,8 @@ CREATE TABLE `fichas` (
 INSERT INTO `fichas` (`id_ficha`, `tipo_programa`, `nombre_programa`, `lider_ficha`) VALUES
 (12345, 'especializacion', 1, 4),
 (2068060, 'tecnologo', 1, 4),
-(5645665, 'especializacion', 2, 6);
+(5645665, 'especializacion', 2, 6),
+(123448789, 'tecnologo', 1, 7);
 
 -- --------------------------------------------------------
 
@@ -481,7 +482,7 @@ ALTER TABLE `programa`
 -- AUTO_INCREMENT de la tabla `rap`
 --
 ALTER TABLE `rap`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de la tabla `regional`
