@@ -18,3 +18,31 @@ JOIN fase fa
 JOIN actividad act 
 JOIN resultado_competencia_programa rcp 
 WHERE id_ficha = 123448789 AND nombre_programa = rcp.programa_id
+
+SELECT rap.id, rap.ficha_id, rcp.resultado_id, rap.estado from resultado_competencia_programa rcp 
+JOIN  rap on rcp.id = rap.rcp_id
+JOIN fichas f on rap.ficha_id = f.id_ficha
+WHERE programa_id = 1 AND rap.ficha_id = 2068060;
+
+SELECT rap.id, rap.ficha_id, rcp.resultado_id, rap.estado from resultado_competencia_programa rcp 
+JOIN  rap on rcp.id = rap.rcp_id
+JOIN fichas f on rap.ficha_id = f.id_ficha
+INNER JOIN programa p ON rcp.programa_id = p.id_programa
+WHERE p.pro_nombre = 'Análisis y desarrollo de sistemas de información';
+
+
+SELECT rcp.id, f.id_ficha, resultado, comp_nombre as competencia, estado, pro_nombre FROM resultado_competencia_programa rcp 
+JOIN rap ON rcp.id = rap.rcp_id
+JOIN fichas f ON rap.ficha_id = f.id_ficha
+JOIN resultados r ON rcp.resultado_id = r.id
+JOIN competencia c ON rcp.comp_id = c.comp_id
+JOIN programa p ON rcp.programa_id = p.id_programa
+WHERE p.pro_nombre = 'Análisis y desarrollo de sistemas de información';
+
+SELECT rcp.id, f.id_ficha, resultado, comp_nombre as competencia, estado, pro_nombre FROM resultado_competencia_programa rcp 
+JOIN rap ON rcp.id = rap.rcp_id
+JOIN fichas f ON rap.ficha_id = f.id_ficha
+JOIN resultados r ON rcp.resultado_id = r.id
+JOIN competencia c ON rcp.comp_id = c.comp_id
+JOIN programa p ON rcp.programa_id = p.id_programa
+WHERE p.pro_nombre = 'Análisis y desarrollo de sistemas de información' AND f.id_ficha= 2068060;

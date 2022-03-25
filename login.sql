@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-03-2022 a las 22:40:24
+-- Tiempo de generación: 25-03-2022 a las 22:43:44
 -- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Versión de PHP: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -178,7 +178,7 @@ CREATE TABLE `rap` (
   `rcp_id` int(11) DEFAULT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
-  `estado` enum('Evaluado','Pendiente','En ejecución','') DEFAULT NULL,
+  `estado` enum('Evaluado','Pendiente','En ejecución','') DEFAULT 'Pendiente',
   `observacion` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
