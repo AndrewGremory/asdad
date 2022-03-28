@@ -149,13 +149,13 @@ $miconexion=conectar_bd('root','login');
                                 <tr>
 
                                 <td><form action="seguimiento.php" method="post"><input type="submit" collapse hidden id="ficha" class="btn btn-light" name="ficha" value="<?php echo $row['id_ficha']; ?>"/><?php echo $row['id_ficha']; ?></td>
-                                    <td><?php echo $row["tipo_programa"]; ?></td>
-                                    <td><?php echo $row["pro_nombre"]; ?></td>
+                                    <td><?php echo $row['tipo_programa']; ?></td>
+                                    <td><?php echo $row['pro_nombre']; ?></td>
                                     <td><?php echo $row['lider']; ?></td>
                                     <td><button type="button" class="btn btn-success editbtn" data-toggle="modal" data-target="#editar"><i class="fas fa-edit"></i></button>
                                     <td><button type="button" class="btn btn-danger deletebtn" data-toggle="modal" data-target="#eliminar"><i class="fas fa-trash"></i></button></td>
                                     
-                                    
+                                    <input type="hidden" name="pro_nombre" value="<?php echo $row['pro_nombre']?>">
                                     <td><form action="seguimiento.php"><button type="submit" id="ficha" class="btn btn-primary" name="ficha" value="<?php echo $row['id_ficha']; ?> ">Administrar ficha</button></form></td>
                                     <!-- <td><label for="ficha" class="btn btn-primary">Administrar ficha</label></td> -->
                                     <!-- <td><a href="seguimiento.php"><button type="button" class="btn btn-success">Administrar ficha</button></a></td> -->

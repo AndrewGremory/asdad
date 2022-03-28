@@ -1,6 +1,7 @@
 <?php include('config.php');
 
 $fichaconsulta= $_POST['ficha'];
+$nombre_programa = $_POST ['pro_nombre'];
 // $consulta = "SELECT * FROM resultado_aprendizaje where ficha_id = '$fichaconsulta'";
 $consulta = "SELECT rap.id, fase_id, act_id, ficha_id, comp_nombre as competencia, resultado, tipo_resultado, fecha_inicio, fecha_fin, estado, observacion FROM `rap` JOIN resultado_competencia_programa rcp ON rcp_id = rcp.id
 JOIN competencia c ON rcp.comp_id = c.comp_id
@@ -192,9 +193,10 @@ $queryData   = mysqli_query($con, $consulta);
                     <br>
                     <div class="col"><a href="consultar_ficha.php" class="btn btn-outline-dark" role="button">Volver</a>
                     <h3 class="mt-4">
-                        Seguimiento de ficha  a
+                        Seguimiento de ficha: 
                     
-                        <?php echo $fichaconsulta ?>
+                        <?php echo $fichaconsulta,'\n'; 
+                        echo $nombre_programa, '\n';?>
                         
         </div>
                     </h3>
@@ -227,6 +229,7 @@ $queryData   = mysqli_query($con, $consulta);
                         ?>   
                     <h6 class="text-center">
                         <!-- Resultados de aprendizaje <strong>(<?php echo $total_client; ?>)</strong> -->
+
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Agregar_resultado">Agregar resultado de Aprendizaje</button>
                         <a class="btn btn-primary" href="../estadisticas/index.php">Estadisticas</a>
                     </h6>
