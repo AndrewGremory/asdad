@@ -46,3 +46,12 @@ JOIN resultados r ON rcp.resultado_id = r.id
 JOIN competencia c ON rcp.comp_id = c.comp_id
 JOIN programa p ON rcp.programa_id = p.id_programa
 WHERE p.pro_nombre = 'Análisis y desarrollo de sistemas de información' AND f.id_ficha= 2068060;
+
+SELECT rcp.id, id_ficha, resultado, comp_nombre as competencia, estado, pro_nombre FROM `fichas` 
+JOIN resultado_competencia_programa rcp ON fichas.nombre_programa = rcp.programa_id
+JOIN rap ON rcp.id = rap.rcp_id
+JOIN resultados r ON rcp.resultado_id = r.id
+JOIN competencia c ON rcp.comp_id = c.comp_id
+JOIN programa p ON fichas.nombre_programa = p.id_programa
+WHERE p.pro_nombre = '' and fichas.id_ficha = *ficha*
+GROUP BY id_ficha, resultado, competencia;

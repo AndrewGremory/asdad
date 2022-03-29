@@ -3,10 +3,19 @@
 $fichaconsulta= $_POST['ficha'];
 $nombre_programa = $_POST ['pro_nombre'];
 // $consulta = "SELECT * FROM resultado_aprendizaje where ficha_id = '$fichaconsulta'";
-$consulta = "SELECT rap.id, fase_id, act_id, ficha_id, comp_nombre as competencia, resultado, tipo_resultado, fecha_inicio, fecha_fin, estado, observacion FROM `rap` JOIN resultado_competencia_programa rcp ON rcp_id = rcp.id
-JOIN competencia c ON rcp.comp_id = c.comp_id
+// $consulta = "SELECT rap.id, fase_id, act_id, ficha_id, comp_nombre as competencia, resultado, tipo_resultado, fecha_inicio, fecha_fin, estado, observacion FROM `rap` JOIN resultado_competencia_programa rcp ON rcp_id = rcp.id
+// JOIN competencia c ON rcp.comp_id = c.comp_id
+// JOIN resultados r ON rcp.resultado_id = r.id
+// WHERE p.pro_nombre = '$nombre_programa' AND f.id_ficha= '$fichaconsulta'";
+
+$consulta = "SELECT ficha_id, rcp.id, tipo_resultado, fecha_inicio, fecha_fin, resultado, comp_nombre as competencia, estado, pro_nombre, observacion FROM `fichas` 
+JOIN resultado_competencia_programa rcp ON fichas.nombre_programa = rcp.programa_id
+JOIN rap ON rcp.id = rap.rcp_id
 JOIN resultados r ON rcp.resultado_id = r.id
-WHERE ficha_id = '$fichaconsulta'";
+JOIN competencia c ON rcp.comp_id = c.comp_id
+JOIN programa p ON fichas.nombre_programa = p.id_programa
+WHERE p.pro_nombre = '$nombre_programa' and fichas.id_ficha = '$fichaconsulta'
+GROUP BY resultado, competencia";
 
 
 $queryData   = mysqli_query($con, $consulta);
@@ -193,10 +202,9 @@ $queryData   = mysqli_query($con, $consulta);
                     <br>
                     <div class="col"><a href="consultar_ficha.php" class="btn btn-outline-dark" role="button">Volver</a>
                     <h3 class="mt-4">
-                        Seguimiento de ficha: 
+                        Seguimiento de ficha:
                     
-                        <?php echo $fichaconsulta,'\n'; 
-                        echo $nombre_programa, '\n';?>
+                        <?php echo $fichaconsulta, "<br>", $nombre_programa;?>
                         
         </div>
                     </h3>
@@ -239,8 +247,8 @@ $queryData   = mysqli_query($con, $consulta);
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Fase</th>
-                                        <th>Actividad de proyecto</th>
+                                        <!-- <th>Fase</th>
+                                        <th>Actividad de proyecto</th> -->
                                         <th>Competencia</th>
                                         <th>Resultado de <br> aprendizaje</th>
                                         <th>Tipo de <br> resultado</th>
@@ -256,8 +264,8 @@ $queryData   = mysqli_query($con, $consulta);
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Fase</th>
-                                        <th>Actividad de proyecto</th>
+                                        <!-- <th>Fase</th>
+                                        <th>Actividad de proyecto</th> -->
                                         <th>Competencia</th>
                                         <th>Resultado de <br> aprendizaje</th>
                                         <th>Tipo de <br> resultado</th>
@@ -280,8 +288,8 @@ $queryData   = mysqli_query($con, $consulta);
                                         $i = 1;
                                         while ($data = mysqli_fetch_array($queryData)) { ?>
                                         <th><?php  echo $i++;?></th>
-                                        <td><?php echo $data['fase_id']; ?></td>
-                                        <td><?php echo $data['act_id']; ?></td>
+                                        <!-- <td><?php echo $data['fase_nombre']; ?></td>
+                                        <td><?php echo $data['act_nombre']; ?></td> -->
                                         <td><?php echo $data['competencia']; ?></td>
                                         <td><?php echo $data['resultado']; ?></td>
                                         <td><?php echo $data['tipo_resultado']; ?></td>

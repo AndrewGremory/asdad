@@ -156,7 +156,8 @@ $miconexion=conectar_bd('root','login');
                                     <td><button type="button" class="btn btn-danger deletebtn" data-toggle="modal" data-target="#eliminar"><i class="fas fa-trash"></i></button></td>
                                     
                                     <input type="hidden" name="pro_nombre" value="<?php echo $row['pro_nombre']?>">
-                                    <td><form action="seguimiento.php"><button type="submit" id="ficha" class="btn btn-primary" name="ficha" value="<?php echo $row['id_ficha']; ?> ">Administrar ficha</button></form></td>
+                                    <!-- <td><form action="seguimiento.php"><button type="submit" id="ficha" class="btn btn-primary" name="ficha" value="<?php echo $row['id_ficha']; ?> ">Administrar ficha</button></form></td> -->
+                                    <td><button type="submit" id="ficha" class="btn btn-primary" name="ficha" value="<?php echo $row['id_ficha']; ?> ">Administrar ficha</button></form></td>
                                     <!-- <td><label for="ficha" class="btn btn-primary">Administrar ficha</label></td> -->
                                     <!-- <td><a href="seguimiento.php"><button type="button" class="btn btn-success">Administrar ficha</button></a></td> -->
 
