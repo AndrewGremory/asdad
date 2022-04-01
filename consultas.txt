@@ -63,3 +63,11 @@ JOIN competencia c ON rcp.comp_id = c.comp_id
 JOIN fichas f 
 JOIN rap ON f.id_ficha = rap.ficha_id AND rcp.id = rap.rcp_id
 WHERE p.pro_nombre = 'Análisis y desarrollo de sistemas de información';
+
+SELECT ficha_id, rcp.id, tipo_resultado, fecha_inicio, fecha_fin, resultado, comp_nombre as competencia, estado, pro_nombre, observacion FROM `fichas` f
+JOIN programa p ON f.nombre_programa = p.id_programa
+JOIN resultado_competencia_programa rcp ON p.id_programa = rcp.programa_id
+JOIN competencia c ON rcp.comp_id = c.comp_id
+JOIN resultados r ON rcp.resultado_id = r.id
+JOIN rap ON rcp.id = rap.rcp_id and f.id_ficha = rap.ficha_id
+WHERE p.pro_nombre = 'Análisis y desarrollo de sistemas de información' and f.id_ficha = 2068060;

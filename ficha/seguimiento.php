@@ -8,14 +8,13 @@ $nombre_programa = $_POST ['pro_nombre'];
 // JOIN resultados r ON rcp.resultado_id = r.id
 // WHERE p.pro_nombre = '$nombre_programa' AND f.id_ficha= '$fichaconsulta'";
 
-$consulta = "SELECT ficha_id, rcp.id, tipo_resultado, fecha_inicio, fecha_fin, resultado, comp_nombre as competencia, estado, pro_nombre, observacion FROM `fichas` 
-JOIN resultado_competencia_programa rcp ON fichas.nombre_programa = rcp.programa_id
-JOIN rap ON rcp.id = rap.rcp_id
-JOIN resultados r ON rcp.resultado_id = r.id
+$consulta = "SELECT ficha_id, rcp.id, tipo_resultado, fecha_inicio, fecha_fin, resultado, comp_nombre as competencia, estado, pro_nombre, observacion FROM `fichas` f
+JOIN programa p ON f.nombre_programa = p.id_programa
+JOIN resultado_competencia_programa rcp ON p.id_programa = rcp.programa_id
 JOIN competencia c ON rcp.comp_id = c.comp_id
-JOIN programa p ON fichas.nombre_programa = p.id_programa
-WHERE p.pro_nombre = '$nombre_programa' and fichas.id_ficha = '$fichaconsulta'
-GROUP BY resultado, competencia";
+JOIN resultados r ON rcp.resultado_id = r.id
+JOIN rap ON rcp.id = rap.rcp_id and f.id_ficha = rap.ficha_id
+WHERE p.pro_nombre = '$nombre_programa' and f.id_ficha = '$fichaconsulta'";
 
 
 $queryData   = mysqli_query($con, $consulta);
