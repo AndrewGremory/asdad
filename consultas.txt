@@ -71,3 +71,8 @@ JOIN competencia c ON rcp.comp_id = c.comp_id
 JOIN resultados r ON rcp.resultado_id = r.id
 JOIN rap ON rcp.id = rap.rcp_id and f.id_ficha = rap.ficha_id
 WHERE p.pro_nombre = 'Análisis y desarrollo de sistemas de información' and f.id_ficha = 2068060;
+
+insert into rap (ficha_id, rcp_id) SELECT id_ficha, rcp.id from fichas f 
+JOIN resultado_competencia_programa rcp
+JOIN programa p ON rcp.programa_id = p.id_programa
+WHERE id_ficha = 9090 AND p.pro_nombre = 'Ganaderia';

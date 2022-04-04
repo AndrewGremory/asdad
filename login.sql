@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-03-2022 a las 22:43:44
+-- Tiempo de generación: 04-04-2022 a las 23:39:06
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.0.13
 
@@ -139,10 +139,10 @@ CREATE TABLE `fichas` (
 --
 
 INSERT INTO `fichas` (`id_ficha`, `tipo_programa`, `nombre_programa`, `lider_ficha`) VALUES
+(12321, 'especializacion', 1, 5),
 (12345, 'especializacion', 1, 4),
-(2068060, 'tecnologo', 1, 4),
-(5645665, 'especializacion', 2, 6),
-(123448789, 'tecnologo', 1, 7);
+(54554, 'tecnico', 2, 5),
+(2068060, 'tecnologo', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -187,15 +187,14 @@ CREATE TABLE `rap` (
 --
 
 INSERT INTO `rap` (`id`, `ficha_id`, `fase_id`, `act_id`, `rcp_id`, `fecha_inicio`, `fecha_fin`, `estado`, `observacion`) VALUES
-(31, 12345, 1, 1, 1, '2022-03-15', '2023-03-30', 'Evaluado', NULL),
-(32, 12345, NULL, NULL, 2, NULL, NULL, NULL, NULL),
-(33, 12345, NULL, NULL, 3, NULL, NULL, NULL, NULL),
-(34, 12345, NULL, NULL, 4, NULL, NULL, NULL, NULL),
-(38, 2068060, NULL, NULL, 1, NULL, NULL, NULL, NULL),
-(39, 2068060, NULL, NULL, 2, NULL, NULL, NULL, NULL),
-(40, 2068060, NULL, NULL, 3, NULL, NULL, NULL, NULL),
-(41, 2068060, NULL, NULL, 4, NULL, NULL, NULL, NULL),
-(55, 5645665, NULL, NULL, 5, NULL, NULL, NULL, NULL);
+(125, 12345, NULL, NULL, 1, NULL, NULL, 'Pendiente', NULL),
+(126, 12345, NULL, NULL, 2, NULL, NULL, 'Pendiente', NULL),
+(127, 12345, NULL, NULL, 3, NULL, NULL, 'Pendiente', NULL),
+(128, 12345, NULL, NULL, 4, NULL, NULL, 'Pendiente', NULL),
+(129, 2068060, NULL, NULL, 1, NULL, NULL, 'Pendiente', NULL),
+(130, 2068060, NULL, NULL, 2, NULL, NULL, 'Pendiente', NULL),
+(131, 2068060, NULL, 1, 3, NULL, NULL, 'Evaluado', 'test'),
+(132, 2068060, NULL, NULL, 4, NULL, NULL, 'Pendiente', NULL);
 
 -- --------------------------------------------------------
 
@@ -275,7 +274,8 @@ INSERT INTO `resultado_competencia_programa` (`id`, `comp_id`, `resultado_id`, `
 (2, 2, 2, 1),
 (3, 3, 3, 1),
 (4, 3, 3, 1),
-(5, 1, 1, 2);
+(5, 1, 1, 2),
+(13, 4, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -482,7 +482,7 @@ ALTER TABLE `programa`
 -- AUTO_INCREMENT de la tabla `rap`
 --
 ALTER TABLE `rap`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
 -- AUTO_INCREMENT de la tabla `regional`
@@ -506,7 +506,7 @@ ALTER TABLE `resultado_aprendizaje`
 -- AUTO_INCREMENT de la tabla `resultado_competencia_programa`
 --
 ALTER TABLE `resultado_competencia_programa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `seguimiento`
@@ -548,7 +548,7 @@ ALTER TABLE `fichas`
 -- Filtros para la tabla `rap`
 --
 ALTER TABLE `rap`
-  ADD CONSTRAINT `rap_ibfk_1` FOREIGN KEY (`ficha_id`) REFERENCES `fichas` (`id_ficha`),
+  ADD CONSTRAINT `rap_ibfk_1` FOREIGN KEY (`ficha_id`) REFERENCES `fichas` (`id_ficha`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `rap_ibfk_2` FOREIGN KEY (`fase_id`) REFERENCES `fase` (`fase_id`),
   ADD CONSTRAINT `rap_ibfk_3` FOREIGN KEY (`act_id`) REFERENCES `actividad` (`act_id`),
   ADD CONSTRAINT `rap_ibfk_4` FOREIGN KEY (`rcp_id`) REFERENCES `resultado_competencia_programa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
