@@ -134,7 +134,7 @@
                                     <option selected disabled value="">Selecciona una opción</option>
                                     <?php while ($opcion = $resultado -> fetch_object()) { ?>
 
-                                <option value="<?php echo $opcion -> id_programa;?>"><?php echo $opcion -> pro_nombre;?></option>
+                                <option value="<?php echo $opcion-> id_programa;?>"><?php echo $opcion-> pro_nombre;?></option>
                                     <?php } ?>
                             </select>
                         </div>

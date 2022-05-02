@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-04-2022 a las 23:39:06
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.0.13
+-- Tiempo de generación: 02-05-2022 a las 06:39:49
+-- Versión del servidor: 10.4.19-MariaDB
+-- Versión de PHP: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -139,10 +139,10 @@ CREATE TABLE `fichas` (
 --
 
 INSERT INTO `fichas` (`id_ficha`, `tipo_programa`, `nombre_programa`, `lider_ficha`) VALUES
-(12321, 'especializacion', 1, 5),
+(1, 'especializacion', 1, 7),
 (12345, 'especializacion', 1, 4),
-(54554, 'tecnico', 2, 5),
-(2068060, 'tecnologo', 1, 4);
+(2068060, 'tecnologo', 1, 4),
+(23132131, 'tecnico', 3, 6);
 
 -- --------------------------------------------------------
 
@@ -194,7 +194,12 @@ INSERT INTO `rap` (`id`, `ficha_id`, `fase_id`, `act_id`, `rcp_id`, `fecha_inici
 (129, 2068060, NULL, NULL, 1, NULL, NULL, 'Pendiente', NULL),
 (130, 2068060, NULL, NULL, 2, NULL, NULL, 'Pendiente', NULL),
 (131, 2068060, NULL, 1, 3, NULL, NULL, 'Evaluado', 'test'),
-(132, 2068060, NULL, NULL, 4, NULL, NULL, 'Pendiente', NULL);
+(132, 2068060, NULL, NULL, 4, NULL, NULL, 'Pendiente', NULL),
+(179, 1, NULL, NULL, 1, NULL, NULL, 'Pendiente', NULL),
+(180, 1, NULL, NULL, 2, NULL, NULL, 'Pendiente', NULL),
+(181, 1, NULL, NULL, 3, NULL, NULL, 'Pendiente', NULL),
+(182, 1, NULL, NULL, 4, NULL, NULL, 'Pendiente', NULL),
+(186, 23132131, NULL, NULL, 13, NULL, NULL, 'Pendiente', NULL);
 
 -- --------------------------------------------------------
 
@@ -482,7 +487,7 @@ ALTER TABLE `programa`
 -- AUTO_INCREMENT de la tabla `rap`
 --
 ALTER TABLE `rap`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
 
 --
 -- AUTO_INCREMENT de la tabla `regional`
